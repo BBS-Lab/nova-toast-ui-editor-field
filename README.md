@@ -4,7 +4,6 @@
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![StyleCI](https://styleci.io/repos/285347026/shield)](https://styleci.io/repos/285347026)
 [![Quality Score](https://img.shields.io/scrutinizer/g/bbs-lab/nova-toast-ui-editor-field.svg?style=flat-square)](https://scrutinizer-ci.com/g/bbs-lab/nova-toast-ui-editor-field)
-[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/bbs-lab/nova-toast-ui-editor-field/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/bbs-lab/nova-toast-ui-editor-field/?branch=master)
 [![Total Downloads](https://img.shields.io/packagist/dt/bbs-lab/nova-toast-ui-editor-field.svg?style=flat-square)](https://packagist.org/packages/bbs-lab/nova-toast-ui-editor-field)
 
 A [Toast UI Editor](https://ui.toast.com/tui-editor) field for Laravel Nova.
