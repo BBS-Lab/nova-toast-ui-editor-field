@@ -15,7 +15,6 @@
         "laravel-nova": "^1.0"
     },
     "dependencies": {
-        "@toast-ui/editor": "^2.3.1",
         "@toast-ui/vue-editor": "^2.3.1",
         "dompurify": "^2.0.12",
         "to-mark": "^1.1.9",
