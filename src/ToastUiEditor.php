@@ -56,7 +56,7 @@ class ToastUiEditor extends Field
             'link',
             'divider',
             'code',
-            'codeblock'
+            'codeblock',
         ],
     ];
 
