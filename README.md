@@ -2,8 +2,7 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/bbs-lab/nova-toast-ui-editor-field.svg?style=flat-square)](https://packagist.org/packages/bbs-lab/nova-toast-ui-editor-field)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![Build Status](https://img.shields.io/travis/bbs-lab/nova-toast-ui-editor-field/master.svg?style=flat-square)](https://travis-ci.org/bbs-lab/nova-toast-ui-editor-field)
-[![StyleCI](https://styleci.io/repos/217854455/shield)](https://styleci.io/repos/217854455)
+[![StyleCI](https://styleci.io/repos/285347026/shield)](https://styleci.io/repos/285347026)
 [![Quality Score](https://img.shields.io/scrutinizer/g/bbs-lab/nova-toast-ui-editor-field.svg?style=flat-square)](https://scrutinizer-ci.com/g/bbs-lab/nova-toast-ui-editor-field)
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/bbs-lab/nova-toast-ui-editor-field/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/bbs-lab/nova-toast-ui-editor-field/?branch=master)
 [![Total Downloads](https://img.shields.io/packagist/dt/bbs-lab/nova-toast-ui-editor-field.svg?style=flat-square)](https://packagist.org/packages/bbs-lab/nova-toast-ui-editor-field)
@@ -140,7 +139,7 @@ Checkout [Toast UI - Vue Editor](https://github.com/nhn/tui.editor/tree/master/a
 
 ## Changelog
 
-Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
+Please see [CHANGELOG](CHANGELOG.md) for more information on recent changes.
 
 ## Security
 
