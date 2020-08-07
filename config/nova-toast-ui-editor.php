@@ -33,7 +33,7 @@ return [
             'link',
             'divider',
             'code',
-            'codeblock'
+            'codeblock',
         ],
     ],
 
