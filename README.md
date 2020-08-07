@@ -49,7 +49,49 @@ This is the contents of the published config file:
 ```php
 <?php
 
+use BbsLab\NovaToastUiEditorField\ToastUiEditor;
+
 return [
+
+    'initialEditType' => ToastUiEditor::EDIT_TYPE_WYSIWYG,
+
+    'options' => [
+        'minHeight' => '200px',
+        'language' => 'en-US',
+        'useCommandShortcut' => true,
+        'usageStatistics' => false,
+        'hideModeSwitch' => false,
+        'toolbarItems' => [
+            'heading',
+            'bold',
+            'italic',
+            'strike',
+            'divider',
+            'hr',
+            'quote',
+            'divider',
+            'ul',
+            'ol',
+            'task',
+            'indent',
+            'outdent',
+            'divider',
+            'table',
+            'image',
+            'link',
+            'divider',
+            'code',
+            'codeblock',
+        ],
+    ],
+
+    'height' => '300px',
+
+    'previewStyle' => ToastUiEditor::PREVIEW_STYLE_TAB,
+
+    'allowIframe' => false,
+
+    'useCloudinary' => false,
 
     'cloudinary' => [
         'cloud_name' => env('CLOUDINARY_CLOUD_NAME', ''),
@@ -97,6 +139,8 @@ class BlogPost extends Resource
 
 You may configure the underlying Toast UI Editor instance with the following field's methods.
 Checkout [Toast UI - Vue Editor](https://github.com/nhn/tui.editor/tree/master/apps/vue-editor#props) documentation.
+
+> You may also configure defaults in config-file.
 
 #### initialEditType
 

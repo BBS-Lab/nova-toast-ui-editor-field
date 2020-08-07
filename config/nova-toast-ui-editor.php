@@ -10,7 +10,6 @@ return [
         'minHeight' => '200px',
         'language' => 'en-US',
         'useCommandShortcut' => true,
-        'useDefaultHTMLSanitizer' => false,
         'usageStatistics' => false,
         'hideModeSwitch' => false,
         'toolbarItems' => [
