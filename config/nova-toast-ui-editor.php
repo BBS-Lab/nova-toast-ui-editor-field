@@ -1,6 +1,49 @@
 <?php
 
+use BbsLab\NovaToastUiEditorField\ToastUiEditor;
+
 return [
+
+    'initialEditType' => ToastUiEditor::EDIT_TYPE_WYSIWYG,
+
+    'options' => [
+        'minHeight' => '200px',
+        'language' => 'en-US',
+        'useCommandShortcut' => true,
+        'useDefaultHTMLSanitizer' => false,
+        'usageStatistics' => false,
+        'hideModeSwitch' => false,
+        'toolbarItems' => [
+            'heading',
+            'bold',
+            'italic',
+            'strike',
+            'divider',
+            'hr',
+            'quote',
+            'divider',
+            'ul',
+            'ol',
+            'task',
+            'indent',
+            'outdent',
+            'divider',
+            'table',
+            'image',
+            'link',
+            'divider',
+            'code',
+            'codeblock'
+        ],
+    ],
+
+    'height' => '300px',
+
+    'previewStyle' => ToastUiEditor::PREVIEW_STYLE_TAB,
+
+    'allowIframe' => false,
+
+    'useCloudinary' => false,
 
     'cloudinary' => [
         'cloud_name' => env('CLOUDINARY_CLOUD_NAME', ''),

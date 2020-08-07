@@ -29,36 +29,7 @@ class ToastUiEditor extends Field
 
     protected $initialEditType;
 
-    protected $options = [
-        'minHeight' => '200px',
-        'language' => 'en-US',
-        'useCommandShortcut' => true,
-        'useDefaultHTMLSanitizer' => false,
-        'usageStatistics' => false,
-        'hideModeSwitch' => false,
-        'toolbarItems' => [
-            'heading',
-            'bold',
-            'italic',
-            'strike',
-            'divider',
-            'hr',
-            'quote',
-            'divider',
-            'ul',
-            'ol',
-            'task',
-            'indent',
-            'outdent',
-            'divider',
-            'table',
-            'image',
-            'link',
-            'divider',
-            'code',
-            'codeblock',
-        ],
-    ];
+    protected $options;
 
     protected $height;
 
@@ -67,6 +38,18 @@ class ToastUiEditor extends Field
     protected $allowIframe;
 
     protected $useCloudinary;
+
+    public function __construct($name, $attribute = null, callable $resolveCallback = null)
+    {
+        parent::__construct($name, $attribute, $resolveCallback);
+
+        $this->initialEditType = config('nova-toast-ui-editor.initialEditType');
+        $this->options = config('nova-toast-ui-editor.options');
+        $this->height = config('nova-toast-ui-editor.height');
+        $this->previewStyle = config('nova-toast-ui-editor.previewStyle');
+        $this->allowIframe = (bool) config('nova-toast-ui-editor.allowIframe');
+        $this->useCloudinary = (bool) config('nova-toast-ui-editor.useCloudinary');
+    }
 
     public function initialEditTypeMarkdown()
     {
@@ -196,10 +179,10 @@ class ToastUiEditor extends Field
     {
         return array_merge(parent::jsonSerialize(), [
             'editor' => [
-                'initialEditType' => $this->initialEditType ?? static::EDIT_TYPE_MARKDOWN,
+                'initialEditType' => $this->initialEditType,
                 'options' => $this->options,
-                'height' => $this->height ?? '300px',
-                'previewStyle' => $this->previewStyle ?? static::PREVIEW_STYLE_VERTICAL,
+                'height' => $this->height,
+                'previewStyle' => $this->previewStyle,
                 'allowIframe' => $this->allowIframe === true,
                 'useCloudinary' => $this->useCloudinary === true,
                 'cloudinary' => $this->useCloudinary === true ? $this->cloudinaryMeta() : null,
