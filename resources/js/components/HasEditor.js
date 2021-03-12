@@ -20,6 +20,11 @@ import '@toast-ui/editor/dist/i18n/uk-ua'
 import '@toast-ui/editor/dist/i18n/zh-cn'
 import '@toast-ui/editor/dist/i18n/zh-tw'
 
+import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
+import codeSyntaxHighlight from "@toast-ui/editor-plugin-code-syntax-highlight";
+import chart from "@toast-ui/editor-plugin-chart";
+import tableMergedCell from "@toast-ui/editor-plugin-table-merged-cell";
+
 export default {
     data: () => ({
         editorConfig: {},

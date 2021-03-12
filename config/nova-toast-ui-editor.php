@@ -34,6 +34,7 @@ return [
             'code',
             'codeblock',
         ],
+        'plugins' => ['chart']
     ],
 
     'height' => '300px',
