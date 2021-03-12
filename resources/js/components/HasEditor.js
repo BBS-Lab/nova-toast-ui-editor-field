@@ -24,6 +24,9 @@ import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
 import codeSyntaxHighlight from "@toast-ui/editor-plugin-code-syntax-highlight";
 import chart from "@toast-ui/editor-plugin-chart";
 import tableMergedCell from "@toast-ui/editor-plugin-table-merged-cell";
+import uml from "@toast-ui/editor-plugin-uml";
+import hljs from 'highlight.js';
+
 
 export default {
     data: () => ({
@@ -165,6 +168,27 @@ export default {
 
             options.customHTMLSanitizer = this.sanitizeHtml
             options.useDefaultHTMLSanitizer = false
+            if(this.editorConfig.plugins){
+                options.plugins = this.editorConfig.plugins.map( (plugin) => {
+                    switch(plugin) {
+                        case 'uml':
+                            return uml;
+                            break;
+                        case 'chart':
+                            return chart;
+                            break;
+                        case 'tableMergedCell':
+                            return tableMergedCell;
+                            break;
+                        case 'colorSyntax':
+                            return colorSyntax;
+                            break;
+                        case 'codeSyntaxHighlight':
+                            return [codeSyntaxHighlight, {hljs}];
+                            break;
+                    }
+                })
+            }
 
             if (this.useCloudinary && options.toolbarItems.indexOf('image') > -1) {
                 this.$cloudinaryMediaLibrary.init({

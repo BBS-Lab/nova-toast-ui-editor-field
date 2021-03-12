@@ -32,7 +32,7 @@ export default {
     props: ['resourceName', 'resourceId', 'field'],
 
     created() {
-        this.compileEditorOptions(this.field.editor)
+      this.compileEditorOptions(this.field.editor)
     },
 
     methods: {

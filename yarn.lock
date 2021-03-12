@@ -28,6 +28,13 @@
   "resolved" "https://registry.npmjs.org/@toast-ui/editor-plugin-table-merged-cell/-/editor-plugin-table-merged-cell-1.3.2.tgz"
   "version" "1.3.2"
 
+"@toast-ui/editor-plugin-uml@^1.0.0":
+  "integrity" "sha512-Z5edquefCrAHnatHiu+tnd4XrkrWSR5+c099clWf2Vzdou/ACyuc0R5kqwUF+qFHq6JFKYYlFtH1gaGs0q9kSg=="
+  "resolved" "https://registry.npmjs.org/@toast-ui/editor-plugin-uml/-/editor-plugin-uml-1.0.0.tgz"
+  "version" "1.0.0"
+  dependencies:
+    "plantuml-encoder" "^1.4.0"
+
 "@toast-ui/editor@^2.5.1":
   "integrity" "sha512-LVNo/YaNItUemEaRFvFAVn7w/0U7yxEheMdn6GEGxqo727rRZD1MH7OTDVq6NeQ+P93VwFpa0i9GGRBhNNEbPQ=="
   "resolved" "https://registry.npmjs.org/@toast-ui/editor/-/editor-2.5.1.tgz"
@@ -6475,6 +6482,11 @@
   "version" "2.0.0"
   dependencies:
     "find-up" "^2.1.0"
+
+"plantuml-encoder@^1.4.0":
+  "integrity" "sha512-sxMwpDw/ySY1WB2CE3+IdMuEcWibJ72DDOsXLkSmEaSzwEUaYBT6DWgOfBiHGCux4q433X6+OEFWjlVqp7gL6g=="
+  "resolved" "https://registry.npmjs.org/plantuml-encoder/-/plantuml-encoder-1.4.0.tgz"
+  "version" "1.4.0"
 
 "pngquant-bin@^4.0.0":
   "integrity" "sha512-jhjMp87bvaUeQOfNaPhSKx3tLCEwRaAycgDpIhMflgFr2+vYhw4ZrcK06eQeYg4OprXPanFljXLl5VuuAP2IHw=="

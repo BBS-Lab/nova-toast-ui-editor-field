@@ -34,8 +34,9 @@ return [
             'code',
             'codeblock',
         ],
-        'plugins' => ['chart']
     ],
+
+    'plugins' => ['chart', 'tableMergedCell', 'uml', 'colorSyntax', 'codeSyntaxHighlight'],
 
     'height' => '300px',
 
