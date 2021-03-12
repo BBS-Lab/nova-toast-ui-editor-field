@@ -84,6 +84,8 @@ return [
             'codeblock',
         ],
     ],
+    
+    'plugins' => ['chart', 'tableMergedCell', 'uml', 'colorSyntax', 'codeSyntaxHighlight'],
 
     'height' => '300px',
 
@@ -159,6 +161,13 @@ Checkout [Toast UI - Vue Editor](https://github.com/nhn/tui.editor/tree/master/a
 `hideModeSwitch(bool $hideModeSwitch = true)`
 
 `toolbarItems(array $toolbarItems)`
+
+### plugins
+`chart`
+`uml`
+`colorSyntax`
+`codeSyntaxHighlight`
+`tableMergedCell`
 
 #### height
 
