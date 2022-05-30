@@ -20,6 +20,14 @@ import '@toast-ui/editor/dist/i18n/uk-ua'
 import '@toast-ui/editor/dist/i18n/zh-cn'
 import '@toast-ui/editor/dist/i18n/zh-tw'
 
+import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
+import codeSyntaxHighlight from "@toast-ui/editor-plugin-code-syntax-highlight";
+import chart from "@toast-ui/editor-plugin-chart";
+import tableMergedCell from "@toast-ui/editor-plugin-table-merged-cell";
+import uml from "@toast-ui/editor-plugin-uml";
+import hljs from 'highlight.js';
+
+
 export default {
     data: () => ({
         editorConfig: {},
@@ -160,6 +168,27 @@ export default {
 
             options.customHTMLSanitizer = this.sanitizeHtml
             options.useDefaultHTMLSanitizer = false
+            if(this.editorConfig.plugins){
+                options.plugins = this.editorConfig.plugins.map( (plugin) => {
+                    switch(plugin) {
+                        case 'uml':
+                            return uml;
+                            break;
+                        case 'chart':
+                            return chart;
+                            break;
+                        case 'tableMergedCell':
+                            return tableMergedCell;
+                            break;
+                        case 'colorSyntax':
+                            return colorSyntax;
+                            break;
+                        case 'codeSyntaxHighlight':
+                            return [codeSyntaxHighlight, {hljs}];
+                            break;
+                    }
+                })
+            }
 
             if (this.useCloudinary && options.toolbarItems.indexOf('image') > -1) {
                 this.$cloudinaryMediaLibrary.init({
@@ -206,7 +235,9 @@ export default {
                 config.ADD_TAGS = ['iframe']
             }
 
-            return DOMPurify.sanitize(html, config)
+            const sanitized = DOMPurify.sanitize(html, config);
+
+            return this.decodeEntities(sanitized);
         },
 
         /**
@@ -222,6 +253,12 @@ export default {
             let regex = new RegExp(`${around}(<${tag}(?:(?!<\\/${tag}).*)<\\/${tag}>)${around}`, 'igm');
 
             return content.replace(regex, `${wrapper}$2${wrapper}`);
+        },
+
+        decodeEntities(value) {
+            value = value.replace(/%7B/g, '{');
+            value = value.replace(/%7D/g, '}');
+            return value;
         }
     }
 }

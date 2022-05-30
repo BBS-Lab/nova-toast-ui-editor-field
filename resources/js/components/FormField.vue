@@ -4,7 +4,7 @@
             <editor
                 :id="field.name"
                 :class="errorClasses"
-                :initialValue="field.value"
+                :initialValue="decodedFieldValue"
                 :initialEditType="editorConfig.initialEditType"
                 :previewStyle="editorConfig.previewStyle"
                 :height="editorConfig.height"
@@ -32,7 +32,17 @@ export default {
     props: ['resourceName', 'resourceId', 'field'],
 
     created() {
-        this.compileEditorOptions(this.field.editor)
+      this.compileEditorOptions(this.field.editor)
+    },
+
+    computed: {
+      decodedFieldValue() {
+        if(this.field.value) {
+          return this.decodeEntities(this.field.value);
+        } else {
+          return '';
+        }
+      }
     },
 
     methods: {
@@ -40,7 +50,7 @@ export default {
          * Set the initial, internal value for the field.
          */
         setInitialValue() {
-            this.value = this.field.value || ''
+          this.value = this.decodedFieldValue;
         },
 
         /**

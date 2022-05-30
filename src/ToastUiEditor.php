@@ -29,6 +29,8 @@ class ToastUiEditor extends Field
 
     protected $initialEditType;
 
+    protected $plugins;
+
     protected $options;
 
     protected $height;
@@ -44,6 +46,7 @@ class ToastUiEditor extends Field
         parent::__construct($name, $attribute, $resolveCallback);
 
         $this->initialEditType = config('nova-toast-ui-editor.initialEditType');
+        $this->plugins = config('nova-toast-ui-editor.plugins');
         $this->options = config('nova-toast-ui-editor.options');
         $this->height = config('nova-toast-ui-editor.height');
         $this->previewStyle = config('nova-toast-ui-editor.previewStyle');
@@ -180,6 +183,7 @@ class ToastUiEditor extends Field
         return array_merge(parent::jsonSerialize(), [
             'editor' => [
                 'initialEditType' => $this->initialEditType,
+                'plugins' => $this->plugins,
                 'options' => $this->options,
                 'height' => $this->height,
                 'previewStyle' => $this->previewStyle,

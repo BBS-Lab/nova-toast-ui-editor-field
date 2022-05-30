@@ -36,6 +36,8 @@ return [
         ],
     ],
 
+    'plugins' => ['chart', 'tableMergedCell', 'uml', 'colorSyntax', 'codeSyntaxHighlight'],
+
     'height' => '300px',
 
     'previewStyle' => ToastUiEditor::PREVIEW_STYLE_TAB,
