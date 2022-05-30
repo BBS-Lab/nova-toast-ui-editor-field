@@ -235,7 +235,9 @@ export default {
                 config.ADD_TAGS = ['iframe']
             }
 
-            return DOMPurify.sanitize(html, config)
+            const sanitized = DOMPurify.sanitize(html, config);
+
+            return this.decodeEntities(sanitized);
         },
 
         /**
@@ -251,6 +253,12 @@ export default {
             let regex = new RegExp(`${around}(<${tag}(?:(?!<\\/${tag}).*)<\\/${tag}>)${around}`, 'igm');
 
             return content.replace(regex, `${wrapper}$2${wrapper}`);
+        },
+
+        decodeEntities(value) {
+            value = value.replace(/%7B/g, '{');
+            value = value.replace(/%7D/g, '}');
+            return value;
         }
     }
 }

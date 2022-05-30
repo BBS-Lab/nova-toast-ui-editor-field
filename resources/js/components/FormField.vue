@@ -4,7 +4,7 @@
             <editor
                 :id="field.name"
                 :class="errorClasses"
-                :initialValue="field.value"
+                :initialValue="decodedFieldValue"
                 :initialEditType="editorConfig.initialEditType"
                 :previewStyle="editorConfig.previewStyle"
                 :height="editorConfig.height"
@@ -35,12 +35,22 @@ export default {
       this.compileEditorOptions(this.field.editor)
     },
 
+    computed: {
+      decodedFieldValue() {
+        if(this.field.value) {
+          return this.decodeEntities(this.field.value);
+        } else {
+          return '';
+        }
+      }
+    },
+
     methods: {
         /*
          * Set the initial, internal value for the field.
          */
         setInitialValue() {
-            this.value = this.field.value || ''
+          this.value = this.decodedFieldValue;
         },
 
         /**
