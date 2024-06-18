@@ -1,0 +1,11 @@
+{
+  "js/field.ts": {
+    "file": "js/field.js",
+    "isEntry": true,
+    "src": "js/field.ts"
+  },
+  "style.css": {
+    "file": "css/field.css",
+    "src": "style.css"
+  }
+}

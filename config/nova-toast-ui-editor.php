@@ -1,48 +1,59 @@
 <?php
 
-use BbsLab\NovaToastUiEditorField\ToastUiEditor;
+declare(strict_types=1);
+
+use BbsLab\NovaToastUiEditorField\Enums\ToastUiEditType;
+use BbsLab\NovaToastUiEditorField\Enums\ToastUiPreviewStyle;
 
 return [
+    'allowIframe' => (bool) env('TOAST_UI_EDITOR_ALLOW_IFRAME', false),
 
-    'initialEditType' => ToastUiEditor::EDIT_TYPE_WYSIWYG,
+    'height' => env('TOAST_UI_EDITOR_HEIGHT', 'auto'),
 
-    'options' => [
-        'minHeight' => '200px',
-        'language' => 'en-US',
-        'useCommandShortcut' => true,
-        'usageStatistics' => false,
-        'hideModeSwitch' => false,
-        'toolbarItems' => [
+    'hideModeSwitch' => (bool)env('TOAST_UI_EDITOR_HIDE_MODE_SWITCH', false),
+
+    'initialEditType' => env('TOAST_UI_EDITOR_INITIAL_EDIT_TYPE', ToastUiEditType::WYSIWYG->value),
+
+    'language' => env('TOAST_UI_EDITOR_LANGUAGE', 'en-US'),
+
+    'minHeight' => env('TOAST_UI_EDITOR_MIN_HEIGHT', '300px'),
+
+    'plugins' => ['chart', 'tableMergedCell', 'uml', 'colorSyntax', 'codeSyntaxHighlight'],
+
+    'previewStyle' => env('TOAST_UI_EDITOR_PREVIEW_STYLE', ToastUiPreviewStyle::TAB->value),
+
+    'toolbarItems' => [
+        [
             'heading',
             'bold',
             'italic',
             'strike',
-            'divider',
+        ],
+        [
             'hr',
             'quote',
-            'divider',
+        ],
+        [
             'ul',
             'ol',
             'task',
             'indent',
             'outdent',
-            'divider',
+        ],
+        [
             'table',
             'image',
             'link',
-            'divider',
+        ],
+        [
             'code',
             'codeblock',
         ],
     ],
 
-    'height' => '300px',
+    'usageStatistics' => (bool)env('TOAST_UI_EDITOR_USAGE_STATISTICS', false),
 
-    'previewStyle' => ToastUiEditor::PREVIEW_STYLE_TAB,
-
-    'allowIframe' => false,
-
-    'useCloudinary' => false,
+    'useCloudinary' => (bool) env('TOAST_UI_EDITOR_USE_CLOUDINARY', false),
 
     'cloudinary' => [
         'cloud_name' => env('CLOUDINARY_CLOUD_NAME', ''),
@@ -51,4 +62,5 @@ return [
         'username' => env('CLOUDINARY_USERNAME', ''),
     ],
 
+    'useCommandShortcut' => (bool)env('TOAST_UI_EDITOR_USE_COMMAND_SHORTCUT', true),
 ];

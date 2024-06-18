@@ -8,18 +8,15 @@
 
 A [Toast UI Editor](https://ui.toast.com/tui-editor) field for Laravel Nova.
 
-![toast ui editor field screenshot](https://bbs-lab.github.io/nova-toast-ui-editor-field/nova-toast-ui-editor-field.png)
+![toast ui editor field screenshot](docs/nova-toast-ui-editor-field.png)
 
 ## Contents
 
 - [Installation](#installation)
 - [Usage](#usage)
 - [Advanced usage](#advanced-usage)
+    - [Dependent Fields](#dependent-fields)
     - [Toast UI Editor configuration](#toast-ui-editor-configuration)
-        - [initialEditType](#initialedittype)
-        - [options](#options)
-        - [height](#height)
-        - [previewStyle](#previewstyle)
     - [Allow iframe in markdown/html](#allow-iframe-in-markdownhtml)
     - [Use Cloudinary as image picker](#use-cloudinary-as-image-picker)
 - [Changelog](#changelog)
@@ -49,49 +46,60 @@ This is the contents of the published config file:
 ```php
 <?php
 
-use BbsLab\NovaToastUiEditorField\ToastUiEditor;
+declare(strict_types=1);
+
+use BbsLab\NovaToastUiEditorField\Enums\ToastUiEditType;
+use BbsLab\NovaToastUiEditorField\Enums\ToastUiPreviewStyle;
 
 return [
+    'allowIframe' => (bool) env('TOAST_UI_EDITOR_ALLOW_IFRAME', false),
 
-    'initialEditType' => ToastUiEditor::EDIT_TYPE_WYSIWYG,
+    'height' => env('TOAST_UI_EDITOR_HEIGHT', 'auto'),
 
-    'options' => [
-        'minHeight' => '200px',
-        'language' => 'en-US',
-        'useCommandShortcut' => true,
-        'usageStatistics' => false,
-        'hideModeSwitch' => false,
-        'toolbarItems' => [
+    'hideModeSwitch' => (bool)env('TOAST_UI_EDITOR_HIDE_MODE_SWITCH', false),
+
+    'initialEditType' => env('TOAST_UI_EDITOR_INITIAL_EDIT_TYPE', ToastUiEditType::WYSIWYG->value),
+
+    'language' => env('TOAST_UI_EDITOR_LANGUAGE', 'en-US'),
+
+    'minHeight' => env('TOAST_UI_EDITOR_MIN_HEIGHT', '300px'),
+
+    'plugins' => ['chart', 'tableMergedCell', 'uml', 'colorSyntax', 'codeSyntaxHighlight'],
+
+    'previewStyle' => env('TOAST_UI_EDITOR_PREVIEW_STYLE', ToastUiPreviewStyle::TAB->value),
+
+    'toolbarItems' => [
+        [
             'heading',
             'bold',
             'italic',
             'strike',
-            'divider',
+        ],
+        [
             'hr',
             'quote',
-            'divider',
+        ],
+        [
             'ul',
             'ol',
             'task',
             'indent',
             'outdent',
-            'divider',
+        ],
+        [
             'table',
             'image',
             'link',
-            'divider',
+        ],
+        [
             'code',
             'codeblock',
         ],
     ],
 
-    'height' => '300px',
+    'usageStatistics' => (bool)env('TOAST_UI_EDITOR_USAGE_STATISTICS', false),
 
-    'previewStyle' => ToastUiEditor::PREVIEW_STYLE_TAB,
-
-    'allowIframe' => false,
-
-    'useCloudinary' => false,
+    'useCloudinary' => (bool) env('TOAST_UI_EDITOR_USE_CLOUDINARY', false),
 
     'cloudinary' => [
         'cloud_name' => env('CLOUDINARY_CLOUD_NAME', ''),
@@ -100,7 +108,9 @@ return [
         'username' => env('CLOUDINARY_USERNAME', ''),
     ],
 
+    'useCommandShortcut' => (bool)env('TOAST_UI_EDITOR_USE_COMMAND_SHORTCUT', true),
 ];
+
 ```
 
 
@@ -133,42 +143,95 @@ class BlogPost extends Resource
     
 }
 ```
+
+> [!IMPORTANT]
+> The field will store the markdown content in the database.
+
+
 ## Advanced usage
+
+### Dependent Fields
+
+You may use the `dependsOn` method to conditionally display the field based on the value of another field. See the example below:
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace Workbench\App\Nova;
+
+use BbsLab\NovaToastUiEditorField\Enums\ToastUiEditType;
+use BbsLab\NovaToastUiEditorField\Enums\ToastUiLanguage;
+use BbsLab\NovaToastUiEditorField\ToastUiEditor;
+use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\FormData;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Http\Requests\NovaRequest;
+
+class Post extends Resource
+{
+    public static $model = \Workbench\App\Models\Post::class;
+
+    public static $title = 'title';
+
+    public static $search = [
+        'id', 'title',
+    ];
+
+    public function fields(NovaRequest $request): array
+    {
+        return [
+            ID::make()->sortable(),
+
+            Text::make('Title')
+                ->sortable()
+                ->rules('required', 'max:255'),
+
+            Boolean::make('Has Content')
+                ->sortable()
+                ->rules('required'),
+
+            ToastUiEditor::make('Content')
+                ->rules('nullable')
+                ->fullWidth()
+                ->hide()
+                ->dependsOn('has_content', function (ToastUiEditor $field, NovaRequest $request, FormData $formData) {
+                    if ($formData->has_content) {
+                        $field
+                            ->show()
+                            ->rules('required');
+                    } else {
+                        $field->hide();
+                    }
+                }),
+        ];
+    }
+}
+```
+
+> [!TIP]
+> More information about dependent fields can be found in the [official documentation](https://nova.laravel.com/docs/resources/fields.html#dependent-fields).
 
 ### Toast UI Editor configuration
 
 You may configure the underlying Toast UI Editor instance with the following field's methods.
 Checkout [Toast UI - Vue Editor](https://github.com/nhn/tui.editor/tree/master/apps/vue-editor#props) documentation.
 
+> [!NOTE]
 > You may also configure defaults in config-file.
 
-#### initialEditType
-
-`initialEditTypeMarkdown()`
-
-`initialEditTypeWYSIWYG()`
-
-#### options
-
-`minHeight(string $minHeight)`
-
-`language(string $language)`
-
-`useCommandShortcut(bool $useCommandShortcut = true)`
-
-`hideModeSwitch(bool $hideModeSwitch = true)`
-
-`toolbarItems(array $toolbarItems)`
-
-#### height
-
-`height(string $height)`
-
-#### previewStyle
-
-`previewStyleVertical()`
-
-`previewStyleTab()`
+- `height(string $height)`
+- `hideModeSwitch(bool $hideModeSwitch = true)`
+- `initialEditType(ToastUiEditType $editType)`
+- `language(ToastUiLanguage $language)`
+- `minHeight(string $minHeight)`
+- `plugins(array $plugins)`
+- `previewStyle(ToastUiPreviewStyle $previewStyle)`
+- `toolbarItems(array $toolbarItems)`
+- `usageStatistics(bool $usageStatistics = true)`
+- `useCommandShortcut(bool $useCommandShortcut = true)`
 
 ### Allow iframe in markdown/html
 
@@ -178,6 +241,7 @@ Checkout [Toast UI - Vue Editor](https://github.com/nhn/tui.editor/tree/master/a
 
 `useCloudinary(bool $useCloudinary = true)`
 
+> [!IMPORTANT]
 > You must configure your Cloudinary credentials as described in nova-toast-ui-editor-field config file.
 
 ## Changelog

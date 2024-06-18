@@ -1,37 +1,28 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BbsLab\NovaToastUiEditorField;
 
-use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova;
+use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class FieldServiceProvider extends ServiceProvider
+class FieldServiceProvider extends PackageServiceProvider
 {
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
-    public function boot()
+    public function configurePackage(Package $package): void
     {
-        $this->publishes([
-            __DIR__.'/../config/nova-toast-ui-editor.php' => config_path('nova-toast-ui-editor.php'),
-        ], 'config');
+        $package
+            ->name('nova-toast-ui-editor')
+            ->hasConfigFile(['nova-toast-ui-editor']);
+    }
 
+    public function packageBooted()
+    {
         Nova::serving(function (ServingNova $event) {
             Nova::script('nova-toast-ui-editor-field', __DIR__.'/../dist/js/field.js');
             Nova::style('nova-toast-ui-editor-field', __DIR__.'/../dist/css/field.css');
         });
-    }
-
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        $this->mergeConfigFrom(__DIR__.'/../config/nova-toast-ui-editor.php', 'nova-toast-ui-editor');
     }
 }
