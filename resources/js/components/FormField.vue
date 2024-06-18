@@ -1,61 +1,82 @@
-<template>
-    <default-field :field="field" :errors="errors" :full-width-content="true">
-        <template slot="field">
-            <editor
-                :id="field.name"
-                :class="errorClasses"
-                :initialValue="field.value"
-                :initialEditType="editorConfig.initialEditType"
-                :previewStyle="editorConfig.previewStyle"
-                :height="editorConfig.height"
-                :options="editorConfig.options"
-                @change="editorChange"
-                @load="editorLoad"
-                ref="editor"
-            />
-        </template>
-    </default-field>
-</template>
-
-<script>
-import { FormField, HandlesValidationErrors } from 'laravel-nova'
-import { Editor } from '@toast-ui/vue-editor'
+<script lang="ts">
+import { defineComponent, PropType } from 'vue'
 import HasEditor from './HasEditor'
 
-export default {
-    components: {
-        editor: Editor,
+export default defineComponent({
+  mixins: [window.LaravelNova.DependentFormField, HasEditor],
+
+  props: {
+    resourceName: {
+      type: String,
+      required: true,
+    },
+    resourceId: {
+      type: [String, Number] as PropType<string | number>,
+      required: true,
+    },
+  },
+
+  mounted() {
+    if (this.currentlyIsVisible) {
+      this.mountEditor(this.value)
+    }
+  },
+
+  methods: {
+    /*
+     * Set the initial, internal value for the field.
+     */
+    setInitialValue() {
+      this.value = this.currentField.value || ''
     },
 
-    mixins: [FormField, HandlesValidationErrors, HasEditor],
-
-    props: ['resourceName', 'resourceId', 'field'],
-
-    created() {
-        this.compileEditorOptions(this.field.editor)
+    /**
+     * Fill the given FormData object with the field's internal value.
+     */
+    fill(formData: FormData) {
+      formData.append(this.currentField.attribute, this.value || '')
     },
 
-    methods: {
-        /*
-         * Set the initial, internal value for the field.
-         */
-        setInitialValue() {
-            this.value = this.field.value || ''
-        },
+    editorMounted() {
+      this.editor?.on('query', (event: string, data: { popupName: string }) => {
+        if (event === 'getPopupInitialValues' && data.popupName === 'image') {
+          if (this.editorConfig.useCloudinary) {
+            setTimeout(() => {
+              this.editor?.eventEmitter.emit('closePopup')
+            }, 5)
 
-        /**
-         * Fill the given FormData object with the field's internal value.
-         */
-        fill(formData) {
-            formData.append(this.field.attribute, this.value || '')
-        },
+            this.$cloudinaryMediaLibrary.show(data => {
+              const image = data.assets[0]
 
-        /**
-         * Update the field's internal value.
-         */
-        handleChange(value) {
-            this.value = value
-        },
+              this.editor?.exec('addImage', {
+                imageUrl: image.secure_url,
+                altText: image.id,
+              })
+            })
+          }
+        }
+      })
+
+      this.editor?.on('change', () => {
+        this.value = this.editor?.getMarkdown().trim()
+      })
+
+      const ref = this.$refs.editor as HTMLElement
+      ref.firstElementChild?.classList.add('form-control-bordered', 'form-control')
     },
-}
+  },
+})
 </script>
+
+<template>
+  <DefaultField
+    :field="currentField"
+    :errors="errors"
+    :show-help-text="showHelpText"
+    :full-width-content="fullWidthContent"
+  >
+    <template #field>
+      <div ref="editor" class="w-full"></div>
+    </template>
+  </DefaultField>
+</template>
