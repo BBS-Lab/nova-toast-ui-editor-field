@@ -1,4 +1,4 @@
-import {EditorType, PreviewStyle} from "@toast-ui/editor/types/editor";
+import { EditorType, PreviewStyle } from '@toast-ui/editor/types/editor'
 
 export type EditorProps = {
   allowIframe: boolean

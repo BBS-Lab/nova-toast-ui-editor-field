@@ -10,7 +10,7 @@ return [
 
     'height' => env('TOAST_UI_EDITOR_HEIGHT', 'auto'),
 
-    'hideModeSwitch' => (bool)env('TOAST_UI_EDITOR_HIDE_MODE_SWITCH', false),
+    'hideModeSwitch' => (bool) env('TOAST_UI_EDITOR_HIDE_MODE_SWITCH', false),
 
     'initialEditType' => env('TOAST_UI_EDITOR_INITIAL_EDIT_TYPE', ToastUiEditType::WYSIWYG->value),
 
@@ -51,7 +51,7 @@ return [
         ],
     ],
 
-    'usageStatistics' => (bool)env('TOAST_UI_EDITOR_USAGE_STATISTICS', false),
+    'usageStatistics' => (bool) env('TOAST_UI_EDITOR_USAGE_STATISTICS', false),
 
     'useCloudinary' => (bool) env('TOAST_UI_EDITOR_USE_CLOUDINARY', false),
 
@@ -62,5 +62,5 @@ return [
         'username' => env('CLOUDINARY_USERNAME', ''),
     ],
 
-    'useCommandShortcut' => (bool)env('TOAST_UI_EDITOR_USE_COMMAND_SHORTCUT', true),
+    'useCommandShortcut' => (bool) env('TOAST_UI_EDITOR_USE_COMMAND_SHORTCUT', true),
 ];

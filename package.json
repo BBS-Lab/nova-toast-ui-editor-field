@@ -31,6 +31,7 @@
         "eslint-plugin-vue": "^9.9.0",
         "form-backend-validation": "^2.4.0",
         "laravel-mix": "^6.0.41",
+        "laravel-nova-devtool": "file:vendor/laravel/nova-devtool",
         "laravel-nova-types": "^0.1.1",
         "lodash": "^4.17.21",
         "lodash-es": "^4.17.21",

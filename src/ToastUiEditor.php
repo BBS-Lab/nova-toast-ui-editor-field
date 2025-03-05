@@ -20,16 +20,27 @@ class ToastUiEditor extends Field
     public $showOnIndex = false;
 
     protected bool $allowIframe;
+
     protected string $height;
+
     protected bool $hideModeSwitch;
+
     protected ToastUiEditType $initialEditType;
+
     protected ToastUiLanguage $language;
+
     protected string $minHeight;
+
     protected array $plugins;
+
     protected ToastUiPreviewStyle $previewStyle;
+
     protected array $toolbarItems;
+
     protected bool $usageStatistics;
+
     protected bool $useCloudinary;
+
     protected bool $useCommandShortcut;
 
     public function __construct($name, $attribute = null, ?callable $resolveCallback = null)

@@ -70,6 +70,10 @@
     color: #555 !important;
 }
 
+.toastui-editor-md-container {
+    background-color: #fff !important;
+}
+
 .toastui-editor-md-tab-container .tab-item:last-child {
     margin-left: -1px !important;
 }
@@ -133,4 +137,8 @@
     border-bottom-color: #121212 !important;
     background-color: #121212 !important;
     color: #eee !important;
+}
+
+.toastui-editor-toolbar {
+    height: auto !important;
 }

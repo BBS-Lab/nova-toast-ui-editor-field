@@ -1,6 +1,10 @@
+laravel: '@testbench-dusk'
+
 providers:
+  - Laravel\Nova\NovaServiceProvider
   - Laravel\Nova\NovaCoreServiceProvider
   - Workbench\App\Providers\NovaServiceProvider
+  # - Workbench\App\Providers\WorkbenchServiceProvider
 
 migrations:
   - workbench/database/migrations
@@ -10,22 +14,18 @@ seeders:
 
 workbench:
   start: /nova
-  user: admin@laravel.com
+  user: nova@laravel.com
   build:
+    - package:discover
     - asset-publish
     - create-sqlite-db
     - db:wipe
     - migrate:refresh
   assets:
     - nova-assets
-  sync:
-    - from: ./workbench/config
-      to: config
-    - from: ray.php
-      to: ray.php
+  sync: []
+
 purge:
   directories:
     - lang/*
     - public/vendor/*
-    - database/migrations/*
-    - config/*

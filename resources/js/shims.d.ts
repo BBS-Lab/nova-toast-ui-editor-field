@@ -1,9 +1,9 @@
-import type {Nova} from 'laravel-nova-types'
-import {MediaLibrary} from 'MediaLibrary'
-import {CloudinaryMediaLibrary} from '@/@types'
+import type { Nova } from 'laravel-nova-types'
+import { MediaLibrary } from 'MediaLibrary'
+import { CloudinaryMediaLibrary } from '@/@types'
 
 declare module '*.vue' {
-  import type {DefineComponent} from 'vue'
+  import type { DefineComponent } from 'vue'
   const component: DefineComponent<Record<string, unknown>, Record<string, unknown>, unknown>
   export default component
 }
@@ -18,7 +18,7 @@ declare global {
         errors: any
         hasError: boolean
         errorClass: string
-      },
+      }
       DependentFormField: {
         value: any
       }

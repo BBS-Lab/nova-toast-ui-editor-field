@@ -1,6 +1,6 @@
 import { defineComponent, PropType } from 'vue'
 import { Editor, EditorOptions } from '@toast-ui/editor'
-import {EditorProps, NovaField, PluginName} from '__types__'
+import { EditorProps, NovaField, PluginName } from '__types__'
 import DOMPurify, { Config } from 'dompurify'
 import _ from 'lodash'
 
@@ -56,7 +56,7 @@ export default defineComponent({
   }),
 
   created() {
-      this.editorConfig = this.field.editor
+    this.editorConfig = this.field.editor
   },
 
   mounted() {
@@ -105,7 +105,7 @@ export default defineComponent({
       } else {
         ref?.firstElementChild?.classList.remove('form-control-bordered-error')
       }
-    }
+    },
   },
 
   methods: {
@@ -154,13 +154,11 @@ export default defineComponent({
         },
       }
 
-      const plugins = this.editorConfig
-        .options
-        .plugins
-        .map((name) => {
+      const plugins = this.editorConfig.options.plugins
+        .map(name => {
           return defaultPlugins[name]
         })
-        .filter((plugin) => !!plugin)
+        .filter(plugin => !!plugin)
 
       const config = {
         el: this.$refs.editor,

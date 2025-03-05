@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Workbench\App\Providers;
 
 use Illuminate\Support\Facades\Gate;
+use Laravel\Fortify\Features;
+use Laravel\Nova\DevTool\DevTool as Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
-use NovaKit\NovaDevTool\Nova;
-use Orchestra\Workbench\Workbench;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
@@ -17,7 +17,22 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function boot(): void
     {
         parent::boot();
-        $this->resources();
+
+        //
+    }
+
+    /**
+     * Register the configurations for Laravel Fortify.
+     */
+    protected function fortify(): void
+    {
+        Nova::fortify()
+            ->features([
+                Features::updatePasswords(),
+                // Features::emailVerification(),
+                // Features::twoFactorAuthentication(['confirm' => true, 'confirmPassword' => true]),
+            ])
+            ->register();
     }
 
     /**
@@ -26,8 +41,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function routes(): void
     {
         Nova::routes()
-            ->withAuthenticationRoutes()
+            ->withAuthenticationRoutes(default: true)
             ->withPasswordResetRoutes()
+            ->withoutEmailVerificationRoutes()
             ->register();
     }
 
@@ -45,16 +61,20 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
     /**
      * Get the dashboards that should be listed in the Nova sidebar.
+     *
+     * @return array<int, \Laravel\Nova\Dashboard>
      */
     protected function dashboards(): array
     {
         return [
-            new \Laravel\Nova\Dashboards\Main(),
+            new \Laravel\Nova\Dashboards\Main,
         ];
     }
 
     /**
      * Get the tools that should be listed in the Nova sidebar.
+     *
+     * @return array<int, \Laravel\Nova\Tool>
      */
     public function tools(): array
     {
@@ -66,16 +86,16 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      */
     protected function resources(): void
     {
-        Nova::resourcesIn(Workbench::path('app/Nova'));
+        Nova::resourcesInWorkbench();
     }
 
     /**
      * Register any application services.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
+        parent::register();
+
         //
     }
 }
